@@ -28,7 +28,11 @@ public partial class Game : Node3D
 	{
 		if (Input.IsActionJustPressed("push_ladder_up"))
 		{
-			ladder.ApplyForce(new Vector3(0f, 100f, 0f), ladderEnd.GlobalPosition);
+			ladder.ApplyForce(new Vector3(0f, ladderPushForce, 0f), ladderEnd.GlobalPosition);
+		}
+		else if (Input.IsActionJustPressed("push_ladder_down"))
+		{
+			ladder.ApplyForce(new Vector3(0f, -ladderPushForce, 0f), ladderEnd.GlobalPosition);
 		}
 	}
 
@@ -53,4 +57,5 @@ public partial class Game : Node3D
 	}
 
 	private float sensitivity = 1000f;
+	private float ladderPushForce = 100f;
 }
