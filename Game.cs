@@ -5,6 +5,7 @@ public partial class Game : Node3D
 {
 	private Player player;
 	private Ladder ladder;
+	private CollisionShape3D ladderEnd;
 	private Marker3D cameraPivot;
 	private Camera3D camera;
 	// Called when the node enters the scene tree for the first time.
@@ -12,6 +13,7 @@ public partial class Game : Node3D
 	{
 		player = (Player)FindChild("Player");
 		ladder = GetNode<Ladder>("Ladder");
+		ladderEnd = (CollisionShape3D)FindChild("LadderEnd");
 		cameraPivot = (Marker3D)FindChild("CameraPivot");
 		camera = (Camera3D)FindChild("Camera3D");
 	}
@@ -20,6 +22,14 @@ public partial class Game : Node3D
 	public override void _Process(double delta)
 	{
 		cameraPivot.GlobalPosition = player.GlobalPosition;
+	}
+
+	public override void _PhysicsProcess(double delta)
+	{
+		if (Input.IsActionJustPressed("push_ladder_up"))
+		{
+			ladder.ApplyForce(new Vector3(0f, 100f, 0f), ladderEnd.GlobalPosition);
+		}
 	}
 
 	// accumulators
