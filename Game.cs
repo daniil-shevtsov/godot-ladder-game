@@ -34,6 +34,11 @@ public partial class Game : Node3D
 				player.Rotation.Y - eventMouseMotion.Relative.X / sensitivity,
 				player.Rotation.Z
 			);
+			cameraPivot.Rotation = new Vector3(
+				Mathf.Clamp(cameraPivot.Rotation.X - eventMouseMotion.Relative.Y / sensitivity, Mathf.DegToRad(-45f), Mathf.DegToRad(90f)),
+				cameraPivot.Rotation.Y,
+				cameraPivot.Rotation.Z
+			);
 		}
 	}
 
