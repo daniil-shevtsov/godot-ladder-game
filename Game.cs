@@ -10,9 +10,9 @@ public partial class Game : Node3D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		player = GetNode<Player>("Player");
+		player = (Player)FindChild("Player");
 		ladder = GetNode<Ladder>("Ladder");
-		cameraPivot = GetNode<Marker3D>("CameraPivot");
+		cameraPivot = (Marker3D)FindChild("CameraPivot");
 		camera = (Camera3D)FindChild("Camera3D");
 	}
 
