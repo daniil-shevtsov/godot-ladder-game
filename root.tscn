@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dy0ewgiuncfu7"]
+[gd_scene load_steps=13 format=3 uid="uid://dy0ewgiuncfu7"]
 
 [ext_resource type="Script" path="res://Game.cs" id="1_74qel"]
 [ext_resource type="Script" path="res://Player.cs" id="2_1qhht"]
@@ -26,6 +26,12 @@ ambient_light_color = Color(0.25098, 0.423529, 0.698039, 1)
 ambient_light_energy = 1.47
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_sts11"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mxpj3"]
+size = Vector3(0.15, 4, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_f3aeh"]
+size = Vector3(0.15, 4, 1)
 
 [node name="Root" type="Node3D"]
 script = ExtResource("1_74qel")
@@ -65,3 +71,12 @@ transform = Transform3D(1, 0, 0, 0, -0.765562, 0.643362, 0, -0.643362, -0.765562
 light_color = Color(0.827451, 0.945098, 0.960784, 1)
 light_indirect_energy = 0.934
 light_volumetric_fog_energy = 0.934
+
+[node name="Ladder" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.10795, 5.28124, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ladder"]
+shape = SubResource("BoxShape3D_mxpj3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ladder"]
+mesh = SubResource("BoxMesh_f3aeh")

@@ -4,11 +4,13 @@ using System;
 public partial class Game : Node3D
 {
 	private Player player;
+	private Ladder ladder;
 	private Marker3D cameraPivot;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		player = GetNode<Player>("Player");
+		ladder = GetNode<Ladder>("Ladder");
 		cameraPivot = GetNode<Marker3D>("CameraPivot");
 	}
 
