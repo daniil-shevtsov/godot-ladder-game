@@ -1,4 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dy0ewgiuncfu7"]
+[gd_scene load_steps=11 format=3 uid="uid://dy0ewgiuncfu7"]
+
+[ext_resource type="Script" path="res://Game.cs" id="1_74qel"]
+[ext_resource type="Script" path="res://Player.cs" id="2_1qhht"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_yxroy"]
 
@@ -10,10 +13,26 @@ size = Vector3(10, 1, 10)
 [sub_resource type="BoxMesh" id="BoxMesh_mcmhv"]
 size = Vector3(10, 1, 10)
 
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_vifql"]
+
+[sub_resource type="Sky" id="Sky_gdnbt"]
+sky_material = SubResource("PhysicalSkyMaterial_vifql")
+
+[sub_resource type="Environment" id="Environment_481jo"]
+background_mode = 2
+sky = SubResource("Sky_gdnbt")
+ambient_light_source = 3
+ambient_light_color = Color(0.25098, 0.423529, 0.698039, 1)
+ambient_light_energy = 1.47
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_sts11"]
+
 [node name="Root" type="Node3D"]
+script = ExtResource("1_74qel")
 
 [node name="Player" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.08818, 0)
+script = ExtResource("2_1qhht")
 
 [node name="Pivot" type="Node3D" parent="Player"]
 
@@ -36,3 +55,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.16379, 0)
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.95503, 3.25969)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_481jo")
+camera_attributes = SubResource("CameraAttributesPractical_sts11")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.765562, 0.643362, 0, -0.643362, -0.765562, 0, 9.10453, 0)
+light_color = Color(0.827451, 0.945098, 0.960784, 1)
+light_indirect_energy = 0.934
+light_volumetric_fog_energy = 0.934
