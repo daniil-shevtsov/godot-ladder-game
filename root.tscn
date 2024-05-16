@@ -70,6 +70,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.95503, 5.09116)
 
 [node name="Ground" parent="." instance=ExtResource("3_n3slw")]
 
+[node name="Ground2" parent="." instance=ExtResource("3_n3slw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12.229)
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_481jo")
 camera_attributes = SubResource("CameraAttributesPractical_sts11")
@@ -93,11 +96,3 @@ mesh = SubResource("BoxMesh_f3aeh")
 [node name="LadderEnd" type="CollisionShape3D" parent="Ladder"]
 transform = Transform3D(1, -4.37114e-08, 4.37114e-08, 4.37114e-08, -4.37114e-08, -1, 4.37114e-08, 1, -4.37114e-08, 0, 2.1999, 0)
 shape = SubResource("CylinderShape3D_v3nlt")
-
-[node name="Ground2" parent="." instance=ExtResource("3_n3slw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.49908, -13.8202)
-Size = Vector3(7.375, 5, 5)
-
-[node name="Ground3" parent="." instance=ExtResource("3_n3slw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.42393, 1.81268, -13.9187)
-Size = Vector3(7.64, 2.82, 5)

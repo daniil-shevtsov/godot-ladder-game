@@ -1,6 +1,7 @@
 using Godot;
 using System;
 
+[Tool]
 public partial class Ground : StaticBody3D
 {
 	CollisionShape3D collisionShape;
