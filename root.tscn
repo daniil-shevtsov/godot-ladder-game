@@ -1,20 +1,15 @@
-[gd_scene load_steps=16 format=3 uid="uid://dy0ewgiuncfu7"]
+[gd_scene load_steps=15 format=3 uid="uid://dy0ewgiuncfu7"]
 
 [ext_resource type="Script" path="res://Game.cs" id="1_74qel"]
 [ext_resource type="Script" path="res://Player.cs" id="2_1qhht"]
 [ext_resource type="Script" path="res://Ladder.cs" id="3_53rp6"]
+[ext_resource type="PackedScene" uid="uid://6r8f2ovsc8pf" path="res://ground.tscn" id="3_n3slw"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_yxroy"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_s800y"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_2m4pg"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_3eymy"]
-size = Vector3(10, 1, 10)
-
-[sub_resource type="BoxMesh" id="BoxMesh_mcmhv"]
-size = Vector3(10, 1, 10)
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_vifql"]
 
@@ -73,13 +68,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.555856, -0.61598)
 [node name="Camera3D" type="Camera3D" parent="Player/CameraPivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.95503, 5.09116)
 
-[node name="Ground" type="StaticBody3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
-shape = SubResource("BoxShape3D_3eymy")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
-mesh = SubResource("BoxMesh_mcmhv")
+[node name="Ground" parent="." instance=ExtResource("3_n3slw")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_481jo")
@@ -104,3 +93,11 @@ mesh = SubResource("BoxMesh_f3aeh")
 [node name="LadderEnd" type="CollisionShape3D" parent="Ladder"]
 transform = Transform3D(1, -4.37114e-08, 4.37114e-08, 4.37114e-08, -4.37114e-08, -1, 4.37114e-08, 1, -4.37114e-08, 0, 2.1999, 0)
 shape = SubResource("CylinderShape3D_v3nlt")
+
+[node name="Ground2" parent="." instance=ExtResource("3_n3slw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.49908, -13.8202)
+Size = Vector3(7.375, 5, 5)
+
+[node name="Ground3" parent="." instance=ExtResource("3_n3slw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.42393, 1.81268, -13.9187)
+Size = Vector3(7.64, 2.82, 5)
