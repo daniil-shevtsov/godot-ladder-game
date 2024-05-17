@@ -14,6 +14,8 @@ public partial class Game : Node3D
 	private CanvasLayer debugOverlay;
 	private DebugOverlay debugDraw;
 
+	private Vector3 ladderInitialRotation;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -22,6 +24,7 @@ public partial class Game : Node3D
 		hand = (StaticBody3D)FindChild("Hand");
 		ladderBottomHinge = (HingeJoint3D)FindChild("LadderBottomHinge");
 		ladder = GetNode<Ladder>("Ladder");
+		ladderInitialRotation = ladderBottomHinge.Rotation;
 		ladderEnd = (CollisionShape3D)FindChild("LadderEnd");
 		ladderTop = (Marker3D)FindChild("LadderTop");
 		cameraPivot = (Marker3D)FindChild("CameraPivot");
@@ -107,11 +110,12 @@ public partial class Game : Node3D
 		else
 		{
 			GD.Print($"Take");
-			// ladder.GlobalPosition = new Vector3(
-			// 	hand.GlobalPosition.X,
-			// 	hand.GlobalPosition.Y + ladder.shape.Size.Y / 2f,
-			// 	hand.GlobalPosition.Z
-			// );
+			ladder.GlobalPosition = new Vector3(
+				hand.GlobalPosition.X,
+				hand.GlobalPosition.Y + ladder.shape.Size.Y / 2f,
+				hand.GlobalPosition.Z
+			);
+			ladder.Rotation = ladderInitialRotation;
 
 			ladderBottomHinge.NodeA = grabbedPath;
 			ladderBottomHinge.NodeB = ladderBottomHinge.GetPathTo(ladder);
