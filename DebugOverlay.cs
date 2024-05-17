@@ -15,6 +15,7 @@ public partial class DebugOverlay : Control
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		QueueRedraw();
 	}
 
 	public override void _Draw()
@@ -23,6 +24,8 @@ public partial class DebugOverlay : Control
 
 		var start = camera.UnprojectPosition(player.GlobalPosition);
 		var end = camera.UnprojectPosition(player.GlobalPosition + player.Velocity);
+
+		GD.Print($"Drawing line from {start} to {end}");
 		DrawLine(start, end, color, 4.0f);
 	}
 }
