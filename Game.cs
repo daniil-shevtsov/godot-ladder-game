@@ -10,6 +10,8 @@ public partial class Game : Node3D
 	private CollisionShape3D ladderEnd;
 	private Marker3D cameraPivot;
 	private Camera3D camera;
+	private CanvasLayer debugOverlay;
+	private DebugOverlay debugDraw;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -22,6 +24,11 @@ public partial class Game : Node3D
 		ladderEnd = (CollisionShape3D)FindChild("LadderEnd");
 		cameraPivot = (Marker3D)FindChild("CameraPivot");
 		camera = (Camera3D)FindChild("Camera3D");
+
+		debugOverlay = GetNode<CanvasLayer>("DebugOverlay");
+		debugDraw = (DebugOverlay)FindChild("DebugDraw3D");
+		debugDraw.camera = camera;
+		debugDraw.player = player;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -44,12 +51,18 @@ public partial class Game : Node3D
 
 		if (Input.IsActionJustPressed("push_ladder_up"))
 		{
-			ladder.ApplyForce(new Vector3(0f, ladderPushForce, 0f), ladderEnd.GlobalPosition);
+			ApplyLadderForce(1);
 		}
 		else if (Input.IsActionJustPressed("push_ladder_down"))
 		{
-			ladder.ApplyForce(new Vector3(0f, -ladderPushForce, 0f), ladderEnd.GlobalPosition);
+			ApplyLadderForce(-1);
 		}
+	}
+
+	private void ApplyLadderForce(int direction)
+	{
+		var topDirection = ladderEnd.GlobalPosition - ladder.GlobalPosition;
+		ladder.ApplyForce(new Vector3(0f, ladderPushForce * direction, 0f), ladderEnd.GlobalPosition);
 	}
 
 	// accumulators
