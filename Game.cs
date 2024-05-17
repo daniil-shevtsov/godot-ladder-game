@@ -17,7 +17,7 @@ public partial class Game : Node3D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		Input.MouseMode = Input.MouseModeEnum.ConfinedHidden;
+		Input.MouseMode = Input.MouseModeEnum.Captured;
 		player = (Player)FindChild("Player");
 		hand = (StaticBody3D)FindChild("Hand");
 		ladderBottomHinge = (HingeJoint3D)FindChild("LadderBottomHinge");
