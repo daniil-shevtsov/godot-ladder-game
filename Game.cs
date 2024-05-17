@@ -8,6 +8,7 @@ public partial class Game : Node3D
 	private HingeJoint3D ladderBottomHinge;
 	private Ladder ladder;
 	private CollisionShape3D ladderEnd;
+	private Marker3D ladderTop;
 	private Marker3D cameraPivot;
 	private Camera3D camera;
 	private CanvasLayer debugOverlay;
@@ -22,6 +23,7 @@ public partial class Game : Node3D
 		ladderBottomHinge = (HingeJoint3D)FindChild("LadderBottomHinge");
 		ladder = GetNode<Ladder>("Ladder");
 		ladderEnd = (CollisionShape3D)FindChild("LadderEnd");
+		ladderTop = (Marker3D)FindChild("LadderTop");
 		cameraPivot = (Marker3D)FindChild("CameraPivot");
 		camera = (Camera3D)FindChild("Camera3D");
 
@@ -48,11 +50,11 @@ public partial class Game : Node3D
 			OnGrabPressed();
 		}
 
-		if (Input.IsActionJustPressed("push_ladder_up"))
+		if (Input.IsActionPressed("push_ladder_up"))
 		{
 			ApplyLadderForce(1);
 		}
-		else if (Input.IsActionJustPressed("push_ladder_down"))
+		else if (Input.IsActionPressed("push_ladder_down"))
 		{
 			ApplyLadderForce(-1);
 		}
@@ -62,8 +64,10 @@ public partial class Game : Node3D
 
 	private void ApplyLadderForce(int direction)
 	{
-		var topDirection = ladderEnd.GlobalPosition - ladder.GlobalPosition;
-		ladder.ApplyForce(new Vector3(0f, ladderPushForce * direction, 0f), ladderEnd.GlobalPosition);
+		var topDirection = ladder.GlobalPosition - ladderTop.GlobalPosition;
+		debugDraw.UpdateVectorToDraw("ladder top", ladderEnd.GlobalPosition, topDirection);
+
+		ladder.ApplyForce(topDirection * ladderPushForce * direction, ladderEnd.GlobalPosition);
 	}
 
 	// accumulators

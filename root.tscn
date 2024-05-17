@@ -98,6 +98,9 @@ mesh = SubResource("BoxMesh_f3aeh")
 transform = Transform3D(1, -4.37114e-08, 4.37114e-08, 4.37114e-08, -4.37114e-08, -1, 4.37114e-08, 1, -4.37114e-08, 0, 2.1999, 0)
 shape = SubResource("CylinderShape3D_v3nlt")
 
+[node name="LadderTop" type="Marker3D" parent="Ladder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
 [node name="DebugOverlay" type="CanvasLayer" parent="."]
 
 [node name="DebugDraw3D" type="Control" parent="DebugOverlay"]
