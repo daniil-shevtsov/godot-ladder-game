@@ -101,15 +101,24 @@ public partial class Game : Node3D
 		{
 			GD.Print($"Drop");
 			ladderBottomHinge.NodeA = null;
+			ladderBottomHinge.NodeB = null;
+			ladder.SetPhysicsProcess(true);
 		}
 		else
 		{
 			GD.Print($"Take");
+			// ladder.GlobalPosition = new Vector3(
+			// 	hand.GlobalPosition.X,
+			// 	hand.GlobalPosition.Y + ladder.shape.Size.Y / 2f,
+			// 	hand.GlobalPosition.Z
+			// );
+
 			ladderBottomHinge.NodeA = grabbedPath;
+			ladderBottomHinge.NodeB = ladderBottomHinge.GetPathTo(ladder);
 		}
 		GD.Print($"New nodeA: {ladderBottomHinge.NodeA}");
 	}
 
 	private float sensitivity = 1000f;
-	private float ladderPushForce = 100f;
+	private float ladderPushForce = 10f;
 }

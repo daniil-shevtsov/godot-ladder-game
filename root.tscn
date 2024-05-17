@@ -53,6 +53,8 @@ shape = SubResource("CapsuleShape3D_s800y")
 
 [node name="Hand" type="StaticBody3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.16846)
+collision_layer = 4
+collision_mask = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player/Hand"]
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
@@ -62,6 +64,7 @@ shape = SubResource("CylinderShape3D_2m4pg")
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 node_a = NodePath("..")
 node_b = NodePath("../../../Ladder")
+exclude_nodes_from_collision = false
 
 [node name="CameraPivot" type="Marker3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.555856, -0.61598)
@@ -85,7 +88,7 @@ light_indirect_energy = 0.934
 light_volumetric_fog_energy = 0.934
 
 [node name="Ladder" type="RigidBody3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.0255314, 4.71668, -1.60106)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.0255314, 3.94793, -1.15964)
 script = ExtResource("3_53rp6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ladder"]
