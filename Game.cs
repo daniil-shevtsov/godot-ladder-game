@@ -28,7 +28,6 @@ public partial class Game : Node3D
 		debugOverlay = GetNode<CanvasLayer>("DebugOverlay");
 		debugDraw = (DebugOverlay)FindChild("DebugDraw3D");
 		debugDraw.camera = camera;
-		debugDraw.player = player;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -57,6 +56,8 @@ public partial class Game : Node3D
 		{
 			ApplyLadderForce(-1);
 		}
+
+		debugDraw.UpdateVectorToDraw("player velocity", player.GlobalPosition, player.GlobalPosition + player.Velocity);
 	}
 
 	private void ApplyLadderForce(int direction)
