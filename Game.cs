@@ -100,7 +100,6 @@ public partial class Game : Node3D
 			}
 
 			player.Velocity = velocity;
-			GD.Print("Move and slide");
 			player.MoveAndSlide();
 		}
 		else
@@ -128,14 +127,18 @@ public partial class Game : Node3D
 			var playerToLadder = ladder.GlobalPosition - player.GlobalPosition;
 
 			var ladderPlane = new Plane(playerToLadder, ladder.shape.Size.Dot(playerToLadder.Normalized()) / 2f);
-			var distance = ladderPlane.DistanceTo(player.GlobalPosition);
+			var distance = Mathf.Abs(ladderPlane.DistanceTo(player.GlobalPosition));
 
 			var isTooFar = distance > 1f;
+			GD.Print($"distance {distance}");
+
 			if (isTooFar)
 			{
-				debugDraw.UpdateVectorToDraw("stick to ladder", player.GlobalPosition, playerToLadder * distance);
-
 				player.Velocity += playerToLadder * distance;
+				var newPosition = player.GlobalPosition + player.Velocity;
+				debugDraw.UpdateVectorToDraw("stick to ladder", player.GlobalPosition, newPosition, new Color(1, 1, 0));
+
+
 				player.MoveAndSlide();
 			}
 		}
