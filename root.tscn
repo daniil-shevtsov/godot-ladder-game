@@ -81,7 +81,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12.229)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.1678, 2.51419, 0.626017)
 
 [node name="Ground4" parent="." instance=ExtResource("3_n3slw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.9953, 4.94406, 0.626017)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.9953, 3.47343, 0.626017)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_481jo")
