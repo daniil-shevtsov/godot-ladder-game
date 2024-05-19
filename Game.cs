@@ -133,24 +133,25 @@ public partial class Game : Node3D
 			var playerToLadder = ladder.GlobalPosition - player.GlobalPosition;
 
 			var ladderPlane = new Plane(ladderNormal, ladder.GlobalPosition);
-			var distance = Mathf.Abs(ladderPlane.DistanceTo(player.GlobalPosition));
 
+			var nearestPoint = CalculatePointOnLadderPlane();
+			var distance = Mathf.Abs(player.GlobalPosition.DistanceTo(nearestPoint));
+			debugDraw.UpdateVectorToDraw("nearestPoint", player.GlobalPosition, nearestPoint, new Color(1, 0.5f, 0.5f));
 			var maxDistance = 1f;
 			var isTooFar = distance > maxDistance;
-			debugDraw.UpdateVectorToDraw("playerToLadder", player.GlobalPosition, player.GlobalPosition + playerToLadder, new Color(0.5f, 0.5f, 0));
-
 
 			if (isTooFar)
 			{
 				GD.Print($"distance {distance}");
-
 				//player.Velocity += playerToLadder * distance;
-				var newPosition = player.GlobalPosition + playerToLadder.Normalized() * (Mathf.Abs(distance) - maxDistance);//player.GlobalPosition + player.Velocity;
-				debugDraw.UpdateVectorToDraw("stick to ladder", player.GlobalPosition, newPosition, new Color(1, 1, 0));
+				var vectorToNearestPoint = nearestPoint - player.GlobalPosition;
+				var newPosition = player.GlobalPosition + vectorToNearestPoint * (Mathf.Abs(distance) - maxDistance);//player.GlobalPosition + player.Velocity;
+																													 // debugDraw.UpdateVectorToDraw("stick to ladder", player.GlobalPosition, newPosition, new Color(1, 1, 0));
 				var distanceToNewPosition = newPosition - player.GlobalPosition;
 				GD.Print($"distanceToNewPosition {distanceToNewPosition}");
+				player.Velocity += vectorToNearestPoint * distance;
 				// player.GlobalPosition = newPosition;
-				//player.MoveAndSlide();
+				player.MoveAndSlide();
 			}
 		}
 
@@ -172,6 +173,27 @@ public partial class Game : Node3D
 		{
 			ApplyLadderForce(-1);
 		}
+	}
+
+	public Vector3 CalculatePointOnLadderPlane()
+	{
+		var LadderDirection = (ladderTop.GlobalPosition - ladder.GlobalPosition).Normalized();
+		var LadderSize = ladder.shape.Size;
+		var LadderPosition = ladder.GlobalPosition;
+		// Get the ladder's right and up vectors based on the direction
+		var ladderRight = LadderDirection.Cross(Vector3.Up).Normalized();
+		var ladderUp = LadderDirection.Cross(ladderRight).Normalized();
+
+		// Project the point onto the plane defined by the ladder's position, direction, and size
+		var localPoint = player.GlobalPosition - LadderPosition;
+		var xDistance = localPoint.Dot(ladderRight);
+		var yDistance = localPoint.Dot(ladderUp);
+
+		var clampedX = Mathf.Clamp(xDistance, -LadderSize.X / 2f, LadderSize.X / 2f);
+		var clampedY = Mathf.Clamp(yDistance, -LadderSize.Y / 2f, LadderSize.Y / 2f);
+
+		var projectedPoint = LadderPosition + ladderRight * clampedX + ladderUp * clampedY;
+		return projectedPoint;
 	}
 
 	private void ApplyLadderForce(int direction)
