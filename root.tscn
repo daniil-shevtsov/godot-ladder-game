@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dy0ewgiuncfu7"]
+[gd_scene load_steps=18 format=3 uid="uid://dy0ewgiuncfu7"]
 
 [ext_resource type="Script" path="res://Game.cs" id="1_74qel"]
 [ext_resource type="Script" path="res://Player.cs" id="2_1qhht"]
@@ -35,6 +35,12 @@ size = Vector3(1, 4, 0.15)
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_v3nlt"]
 height = 0.996386
 radius = 0.15
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k3fwa"]
+size = Vector3(0.15, 4, 0.15)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qngct"]
+size = Vector3(0.55, 0.15, 0.15)
 
 [node name="Root" type="Node3D"]
 script = ExtResource("1_74qel")
@@ -118,3 +124,22 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("5_e736m")
+
+[node name="TestLadder" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.38281, 3.25316, 0)
+
+[node name="RightBar" type="CollisionShape3D" parent="TestLadder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35, 0, 0)
+shape = SubResource("BoxShape3D_k3fwa")
+
+[node name="TopStep" type="CollisionShape3D" parent="TestLadder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.925, 0)
+shape = SubResource("BoxShape3D_qngct")
+
+[node name="MiddleStep" type="CollisionShape3D" parent="TestLadder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.47282, 0)
+shape = SubResource("BoxShape3D_qngct")
+
+[node name="LeftBar" type="CollisionShape3D" parent="TestLadder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35, 0, 0)
+shape = SubResource("BoxShape3D_k3fwa")
