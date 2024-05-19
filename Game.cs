@@ -110,39 +110,48 @@ public partial class Game : Node3D
 			if (climbInput != 0f)
 			{
 				var multiplier = climbInput * Player.Speed;
-				debugDraw.UpdateVectorToDraw("ladder direction", ladder.GlobalPosition, ladderEnd.GlobalPosition);
+				// debugDraw.UpdateVectorToDraw("ladder direction", ladder.GlobalPosition, ladderEnd.GlobalPosition);
 				var a = ladderEnd.GlobalPosition - ladder.GlobalPosition;
 				var b = a.Normalized();
 				debugDraw.UpdateVectorToDraw("a", ladder.GlobalPosition, ladder.GlobalPosition + a * multiplier);
 				debugDraw.UpdateVectorToDraw("b", ladder.GlobalPosition, ladder.GlobalPosition + b * multiplier, new Color(1, 0, 0));
 
 				player.Velocity = b * multiplier;
-				debugDraw.UpdateVectorToDraw("player ladder velocity", player.GlobalPosition, player.GlobalPosition + player.Velocity);
+				// debugDraw.UpdateVectorToDraw("player ladder velocity", player.GlobalPosition, player.GlobalPosition + player.Velocity);
 				player.MoveAndSlide();
 				//player.GlobalPosition += player.Velocity * delta;
 			}
 			// There is no way to disable project gravity for CharacterBody3D, so we counteract it instead
 			player.Velocity += new Vector3(0f, projectGravity * delta, 0f);
 
+
+		}
+
+		if (isClimbing)
+		{
+			var ladderNormal = (ladderTop.GlobalPosition - ladder.GlobalPosition).Normalized();
+			debugDraw.UpdateVectorToDraw("ladder normal", ladder.GlobalPosition, ladder.GlobalPosition + ladderNormal * 25f, new Color(0, 1, 1));
+
 			var playerToLadder = ladder.GlobalPosition - player.GlobalPosition;
 
-			var ladderPlane = new Plane(playerToLadder, ladder.shape.Size.Dot(playerToLadder.Normalized()) / 2f);
+			var ladderPlane = new Plane(ladder.GlobalPosition, ladderNormal);
 			var distance = Mathf.Abs(ladderPlane.DistanceTo(player.GlobalPosition));
 
-			var isTooFar = distance > 1f;
-			GD.Print($"distance {distance}");
+			var maxDistance = 4f;
+			var isTooFar = distance > maxDistance;
 
 			if (isTooFar)
 			{
-				player.Velocity += playerToLadder * distance;
-				var newPosition = player.GlobalPosition + player.Velocity;
+				GD.Print($"distance {distance}");
+
+				//player.Velocity += playerToLadder * distance;
+				var newPosition = player.GlobalPosition + playerToLadder.Normalized() * (Mathf.Abs(distance) - maxDistance);//player.GlobalPosition + player.Velocity;
 				debugDraw.UpdateVectorToDraw("stick to ladder", player.GlobalPosition, newPosition, new Color(1, 1, 0));
 
-
-				player.MoveAndSlide();
+				// player.GlobalPosition = newPosition;
+				//player.MoveAndSlide();
 			}
 		}
-
 
 		if (Input.IsActionJustPressed("grab"))
 		{
@@ -169,7 +178,7 @@ public partial class Game : Node3D
 		var start = ladder.GlobalPosition;
 		var end = ladderTop.GlobalPosition;
 		var topDirection = start.DirectionTo(end);
-		debugDraw.UpdateVectorToDraw("ladder top", start, end);
+		// debugDraw.UpdateVectorToDraw("ladder top", start, end);
 
 		ladder.ApplyForce(topDirection * ladderPushForce * direction, ladderEnd.GlobalPosition);
 	}
