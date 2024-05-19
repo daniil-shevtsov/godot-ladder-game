@@ -6,6 +6,16 @@ public partial class Player : CharacterBody3D
 	public const float Speed = 5.0f;
 	public const float JumpVelocity = 4.5f;
 
+	public CollisionShape3D CollisionShape;
+	public CapsuleShape3D Shape;
+
+	public override void _Ready()
+	{
+		base._Ready();
+		CollisionShape = GetNode<CollisionShape3D>("CollisionShape3D");
+		Shape = (CapsuleShape3D)CollisionShape.Shape;
+	}
+
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
 	public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
 

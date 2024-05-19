@@ -125,11 +125,17 @@ public partial class Game : Node3D
 			// There is no way to disable project gravity for CharacterBody3D, so we counteract it instead
 			player.Velocity += new Vector3(0f, projectGravity * delta, 0f);
 
-			var directionToLadder = ladder.GlobalPosition - player.GlobalPosition;
-			var distance = player.GlobalPosition.DistanceTo(ladder.GlobalPosition);
-			if (distance > 1f)
+			var playerToLadder = ladder.GlobalPosition - player.GlobalPosition;
+
+			var ladderPlane = new Plane(playerToLadder, ladder.shape.Size.Dot(playerToLadder.Normalized()) / 2f);
+			var distance = ladderPlane.DistanceTo(player.GlobalPosition);
+
+			var isTooFar = distance > 1f;
+			if (isTooFar)
 			{
-				player.Velocity += directionToLadder * distance;
+				debugDraw.UpdateVectorToDraw("stick to ladder", player.GlobalPosition, playerToLadder * distance);
+
+				player.Velocity += playerToLadder * distance;
 				player.MoveAndSlide();
 			}
 		}
