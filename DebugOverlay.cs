@@ -30,7 +30,7 @@ public partial class DebugOverlay : Control
 		foreach (var vector in vectorsToDraw.Values)
 		{
 			var width = 4.0f;
-			var color = new Color(0, 1, 0);
+			var color = vector.color;
 
 			var start = camera.UnprojectPosition(vector.start);
 			var end = camera.UnprojectPosition(vector.end);

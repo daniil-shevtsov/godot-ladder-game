@@ -85,7 +85,11 @@ public partial class Game : Node3D
 			}
 
 			Vector2 inputDir = Input.GetVector("player_left", "player_right", "player_forward", "player_backwards");
+
+			debugDraw.UpdateVectorToDraw("inputDir", player.GlobalPosition, player.GlobalPosition + new Vector3(inputDir.X, 0, inputDir.Y) * 25f);
 			Vector3 direction = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
+			debugDraw.UpdateVectorToDraw("direction", player.GlobalPosition, player.GlobalPosition + direction * 10f, new Color(1, 0, 0));
+
 			if (direction != Vector3.Zero)
 			{
 				velocity.X = direction.X * Player.Speed;
@@ -103,8 +107,29 @@ public partial class Game : Node3D
 		}
 		else
 		{
-			// There is no way to disable project gravity for CharacterBody3D, so we counteract it instead
-			player.Velocity = new Vector3(0f, projectGravity * delta, 0f);
+			// player.Velocity = Vector3.Zero;
+
+			// var climbInput = Input.GetAxis("player_backwards", "player_forward");
+			// if (climbInput != 0f)
+			// {
+			// 	var multiplier = climbInput * Player.Speed;
+			// 	debugDraw.UpdateVectorToDraw("ladder direction", ladder.GlobalPosition, ladderEnd.GlobalPosition);
+			// 	var a = ladder.GlobalPosition - ladderEnd.GlobalPosition;
+			// 	var b = a.Normalized();
+			// 	var c = b.Abs();
+			// 	debugDraw.UpdateVectorToDraw("a", ladder.GlobalPosition, ladder.GlobalPosition + a * multiplier);
+			// 	debugDraw.UpdateVectorToDraw("b", ladder.GlobalPosition, ladder.GlobalPosition + b * multiplier, new Color(1, 0, 0));
+			// 	debugDraw.UpdateVectorToDraw("c", ladder.GlobalPosition, ladder.GlobalPosition + c * multiplier, new Color(0, 0, 1));
+
+
+
+			// 	player.Velocity = c * multiplier;
+			// 	debugDraw.UpdateVectorToDraw("player ladder velocity", player.GlobalPosition, player.GlobalPosition + player.Velocity);
+			// 	//player.MoveAndSlide();
+			// 	player.GlobalPosition += player.Velocity * delta;
+			// }
+			// // There is no way to disable project gravity for CharacterBody3D, so we counteract it instead
+			// player.Velocity += new Vector3(0f, projectGravity * delta, 0f);
 		}
 
 
