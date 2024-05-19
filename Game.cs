@@ -153,7 +153,10 @@ public partial class Game : Node3D
 		{
 			Vector3 velocity = player.Velocity;
 			velocity.Y = Player.JumpVelocity;
+			player.Velocity = velocity;
 			isClimbing = false;
+
+			player.MoveAndSlide();
 		}
 
 		if (Input.IsActionJustPressed("grab"))
