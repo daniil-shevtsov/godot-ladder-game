@@ -14,7 +14,7 @@ public partial class Game : Node3D
 	private CanvasLayer debugOverlay;
 	private DebugOverlay debugDraw;
 
-	private Vector3 ladderInitialRotation;
+	private bool isClimbing = false;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -23,7 +23,6 @@ public partial class Game : Node3D
 		hand = (StaticBody3D)FindChild("Hand");
 		ladderBottomHinge = (HingeJoint3D)FindChild("LadderBottomHinge");
 		ladder = GetNode<Ladder>("Ladder");
-		ladderInitialRotation = ladderBottomHinge.Rotation;
 		ladderEnd = (CollisionShape3D)FindChild("LadderEnd");
 		ladderTop = (Marker3D)FindChild("LadderTop");
 		cameraPivot = (Marker3D)FindChild("CameraPivot");
@@ -47,19 +46,7 @@ public partial class Game : Node3D
 			GetTree().Quit();
 		}
 
-		if (Input.IsActionJustPressed("grab"))
-		{
-			OnGrabPressed();
-		}
-
-		if (Input.IsActionPressed("push_ladder_up"))
-		{
-			ApplyLadderForce(1);
-		}
-		else if (Input.IsActionPressed("push_ladder_down"))
-		{
-			ApplyLadderForce(-1);
-		}
+		HandlePlayerInputs((float)delta);
 
 		if (Input.IsActionJustPressed("toggle_mouse"))
 		{
@@ -75,6 +62,57 @@ public partial class Game : Node3D
 		}
 
 		//debugDraw.UpdateVectorToDraw("player velocity", player.GlobalPosition, player.GlobalPosition + player.Velocity);
+	}
+
+	private void HandlePlayerInputs(float delta)
+	{
+		Vector3 velocity = player.Velocity;
+
+		if (!player.IsOnFloor())
+		{
+			velocity.Y -= player.gravity * delta;
+		}
+
+		if (Input.IsActionJustPressed("jump") && player.IsOnFloor())
+		{
+			velocity.Y = Player.JumpVelocity;
+
+		}
+
+		Vector2 inputDir = Input.GetVector("player_left", "player_right", "player_forward", "player_backwards");
+		Vector3 direction = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
+		if (direction != Vector3.Zero)
+		{
+			velocity.X = direction.X * Player.Speed;
+			velocity.Z = direction.Z * Player.Speed;
+		}
+		else
+		{
+			velocity.X = Mathf.MoveToward(player.Velocity.X, 0, Player.Speed);
+			velocity.Z = Mathf.MoveToward(player.Velocity.Z, 0, Player.Speed);
+		}
+
+		player.Velocity = velocity;
+		player.MoveAndSlide();
+
+		if (Input.IsActionJustPressed("grab"))
+		{
+			OnGrabPressed();
+		}
+
+		if (Input.IsActionJustPressed("use"))
+		{
+			OnUsePressed();
+		}
+
+		if (Input.IsActionPressed("push_ladder_up"))
+		{
+			ApplyLadderForce(1);
+		}
+		else if (Input.IsActionPressed("push_ladder_down"))
+		{
+			ApplyLadderForce(-1);
+		}
 	}
 
 	private void ApplyLadderForce(int direction)
@@ -133,6 +171,11 @@ public partial class Game : Node3D
 			ladderBottomHinge.NodeB = ladderBottomHinge.GetPathTo(ladder);
 		}
 		GD.Print($"New nodeA: {ladderBottomHinge.NodeA}");
+	}
+
+	private void OnUsePressed()
+	{
+		isClimbing = !isClimbing;
 	}
 
 	private float sensitivity = 1000f;
