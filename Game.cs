@@ -78,12 +78,6 @@ public partial class Game : Node3D
 				velocity.Y -= player.gravity * delta;
 			}
 
-			if (Input.IsActionJustPressed("jump") && player.IsOnFloor())
-			{
-				velocity.Y = Player.JumpVelocity;
-
-			}
-
 			Vector2 inputDir = Input.GetVector("player_left", "player_right", "player_forward", "player_backwards");
 
 			Vector3 direction = (player.Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
@@ -155,6 +149,13 @@ public partial class Game : Node3D
 			}
 		}
 
+		if (Input.IsActionJustPressed("jump") && (player.IsOnFloor() || isClimbing))
+		{
+			Vector3 velocity = player.Velocity;
+			velocity.Y = Player.JumpVelocity;
+			isClimbing = false;
+		}
+
 		if (Input.IsActionJustPressed("grab"))
 		{
 			OnGrabPressed();
@@ -175,6 +176,7 @@ public partial class Game : Node3D
 		}
 	}
 
+	// ChatGPT code that I don't entirely understand
 	public Vector3 CalculatePointOnLadderPlane()
 	{
 		var LadderDirection = (ladderTop.GlobalPosition - ladder.GlobalPosition).Normalized();
