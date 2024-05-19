@@ -123,22 +123,22 @@ public partial class Game : Node3D
 			}
 			// There is no way to disable project gravity for CharacterBody3D, so we counteract it instead
 			player.Velocity += new Vector3(0f, projectGravity * delta, 0f);
-
-
 		}
 
 		if (isClimbing)
 		{
 			var ladderNormal = (ladderTop.GlobalPosition - ladder.GlobalPosition).Normalized();
-			debugDraw.UpdateVectorToDraw("ladder normal", ladder.GlobalPosition, ladder.GlobalPosition + ladderNormal * 25f, new Color(0, 1, 1));
+			debugDraw.UpdateVectorToDraw("ladder normal", ladder.GlobalPosition, ladder.GlobalPosition + ladderNormal * 5f, new Color(0, 1, 1));
 
 			var playerToLadder = ladder.GlobalPosition - player.GlobalPosition;
 
-			var ladderPlane = new Plane(ladder.GlobalPosition, ladderNormal);
+			var ladderPlane = new Plane(ladderNormal, ladder.GlobalPosition);
 			var distance = Mathf.Abs(ladderPlane.DistanceTo(player.GlobalPosition));
 
-			var maxDistance = 4f;
+			var maxDistance = 1f;
 			var isTooFar = distance > maxDistance;
+			debugDraw.UpdateVectorToDraw("playerToLadder", player.GlobalPosition, player.GlobalPosition + playerToLadder, new Color(0.5f, 0.5f, 0));
+
 
 			if (isTooFar)
 			{
@@ -147,7 +147,8 @@ public partial class Game : Node3D
 				//player.Velocity += playerToLadder * distance;
 				var newPosition = player.GlobalPosition + playerToLadder.Normalized() * (Mathf.Abs(distance) - maxDistance);//player.GlobalPosition + player.Velocity;
 				debugDraw.UpdateVectorToDraw("stick to ladder", player.GlobalPosition, newPosition, new Color(1, 1, 0));
-
+				var distanceToNewPosition = newPosition - player.GlobalPosition;
+				GD.Print($"distanceToNewPosition {distanceToNewPosition}");
 				// player.GlobalPosition = newPosition;
 				//player.MoveAndSlide();
 			}
