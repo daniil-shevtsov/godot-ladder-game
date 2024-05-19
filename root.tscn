@@ -27,10 +27,10 @@ ambient_light_energy = 1.47
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_sts11"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mxpj3"]
-size = Vector3(0.15, 4, 1)
+size = Vector3(1, 4, 0.15)
 
 [sub_resource type="BoxMesh" id="BoxMesh_f3aeh"]
-size = Vector3(0.15, 4, 1)
+size = Vector3(1, 4, 0.15)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_v3nlt"]
 height = 0.996386
@@ -77,6 +77,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.95503, 5.09116)
 [node name="Ground2" parent="." instance=ExtResource("3_n3slw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12.229)
 
+[node name="Ground3" parent="." instance=ExtResource("3_n3slw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.1678, 2.51419, 0.626017)
+
+[node name="Ground4" parent="." instance=ExtResource("3_n3slw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.9953, 4.94406, 0.626017)
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_481jo")
 camera_attributes = SubResource("CameraAttributesPractical_sts11")
@@ -88,7 +94,7 @@ light_indirect_energy = 0.934
 light_volumetric_fog_energy = 0.934
 
 [node name="Ladder" type="RigidBody3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.0255314, 3.94793, -1.15964)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0255314, 3.94793, -1.15964)
 script = ExtResource("3_53rp6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ladder"]
@@ -98,11 +104,11 @@ shape = SubResource("BoxShape3D_mxpj3")
 mesh = SubResource("BoxMesh_f3aeh")
 
 [node name="LadderEnd" type="CollisionShape3D" parent="Ladder"]
-transform = Transform3D(1, -4.37114e-08, 4.37114e-08, 4.37114e-08, -4.37114e-08, -1, 4.37114e-08, 1, -4.37114e-08, 0, 2.1999, 0)
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 2.1999, 0)
 shape = SubResource("CylinderShape3D_v3nlt")
 
 [node name="LadderTop" type="Marker3D" parent="Ladder"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1.86265e-09)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="DebugOverlay" type="CanvasLayer" parent="."]
 

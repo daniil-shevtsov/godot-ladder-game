@@ -127,7 +127,7 @@ public partial class Game : Node3D
 				hand.GlobalPosition.Y + ladder.shape.Size.Y / 2f,
 				hand.GlobalPosition.Z
 			);
-			ladder.Rotation = ladderInitialRotation;
+			ladder.Rotation = player.Rotation;//ladderInitialRotation;
 
 			ladderBottomHinge.NodeA = grabbedPath;
 			ladderBottomHinge.NodeB = ladderBottomHinge.GetPathTo(ladder);
