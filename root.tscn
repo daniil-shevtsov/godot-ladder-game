@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Game.cs" id="1_74qel"]
 [ext_resource type="Script" path="res://Player.cs" id="2_1qhht"]
 [ext_resource type="Script" path="res://Ladder.cs" id="3_53rp6"]
-[ext_resource type="PackedScene" uid="uid://6r8f2ovsc8pf" path="res://ground.tscn" id="3_n3slw"]
+[ext_resource type="PackedScene" path="res://ground.tscn" id="3_n3slw"]
 [ext_resource type="Script" path="res://DebugOverlay.cs" id="5_e736m"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_yxroy"]

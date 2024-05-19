@@ -87,7 +87,7 @@ public partial class Game : Node3D
 			Vector2 inputDir = Input.GetVector("player_left", "player_right", "player_forward", "player_backwards");
 
 			debugDraw.UpdateVectorToDraw("inputDir", player.GlobalPosition, player.GlobalPosition + new Vector3(inputDir.X, 0, inputDir.Y) * 25f);
-			Vector3 direction = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
+			Vector3 direction = (player.Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
 			debugDraw.UpdateVectorToDraw("direction", player.GlobalPosition, player.GlobalPosition + direction * 10f, new Color(1, 0, 0));
 
 			if (direction != Vector3.Zero)
