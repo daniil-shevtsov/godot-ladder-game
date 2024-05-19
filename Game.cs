@@ -16,6 +16,9 @@ public partial class Game : Node3D
 
 	private bool isClimbing = false;
 
+	private float projectGravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
+
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -66,34 +69,44 @@ public partial class Game : Node3D
 
 	private void HandlePlayerInputs(float delta)
 	{
-		Vector3 velocity = player.Velocity;
-
-		if (!player.IsOnFloor())
+		if (!isClimbing)
 		{
-			velocity.Y -= player.gravity * delta;
-		}
+			Vector3 velocity = player.Velocity;
 
-		if (Input.IsActionJustPressed("jump") && player.IsOnFloor())
-		{
-			velocity.Y = Player.JumpVelocity;
+			if (!player.IsOnFloor())
+			{
+				velocity.Y -= player.gravity * delta;
+			}
 
-		}
+			if (Input.IsActionJustPressed("jump") && player.IsOnFloor())
+			{
+				velocity.Y = Player.JumpVelocity;
 
-		Vector2 inputDir = Input.GetVector("player_left", "player_right", "player_forward", "player_backwards");
-		Vector3 direction = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
-		if (direction != Vector3.Zero)
-		{
-			velocity.X = direction.X * Player.Speed;
-			velocity.Z = direction.Z * Player.Speed;
+			}
+
+			Vector2 inputDir = Input.GetVector("player_left", "player_right", "player_forward", "player_backwards");
+			Vector3 direction = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
+			if (direction != Vector3.Zero)
+			{
+				velocity.X = direction.X * Player.Speed;
+				velocity.Z = direction.Z * Player.Speed;
+			}
+			else
+			{
+				velocity.X = Mathf.MoveToward(player.Velocity.X, 0, Player.Speed);
+				velocity.Z = Mathf.MoveToward(player.Velocity.Z, 0, Player.Speed);
+			}
+
+			player.Velocity = velocity;
+			GD.Print("Move and slide");
+			player.MoveAndSlide();
 		}
 		else
 		{
-			velocity.X = Mathf.MoveToward(player.Velocity.X, 0, Player.Speed);
-			velocity.Z = Mathf.MoveToward(player.Velocity.Z, 0, Player.Speed);
+			// There is no way to disable project gravity for CharacterBody3D, so we counteract it instead
+			player.Velocity = new Vector3(0f, projectGravity * delta, 0f);
 		}
 
-		player.Velocity = velocity;
-		player.MoveAndSlide();
 
 		if (Input.IsActionJustPressed("grab"))
 		{
