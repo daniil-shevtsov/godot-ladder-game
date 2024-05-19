@@ -19,7 +19,6 @@ public partial class Game : Node3D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		// Input.MouseMode = Input.MouseModeEnum.Captured;
 		player = (Player)FindChild("Player");
 		hand = (StaticBody3D)FindChild("Hand");
 		ladderBottomHinge = (HingeJoint3D)FindChild("LadderBottomHinge");
@@ -60,6 +59,19 @@ public partial class Game : Node3D
 		else if (Input.IsActionPressed("push_ladder_down"))
 		{
 			ApplyLadderForce(-1);
+		}
+
+		if (Input.IsActionJustPressed("toggle_mouse"))
+		{
+			if (Input.MouseMode == Input.MouseModeEnum.Visible)
+			{
+				Input.MouseMode = Input.MouseModeEnum.Captured;
+			}
+			else
+			{
+				Input.MouseMode = Input.MouseModeEnum.Captured;
+			}
+
 		}
 
 		//debugDraw.UpdateVectorToDraw("player velocity", player.GlobalPosition, player.GlobalPosition + player.Velocity);
