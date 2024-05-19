@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Game.cs" id="1_74qel"]
 [ext_resource type="Script" path="res://Player.cs" id="2_1qhht"]
 [ext_resource type="Script" path="res://Ladder.cs" id="3_53rp6"]
-[ext_resource type="PackedScene" path="res://ground.tscn" id="3_n3slw"]
+[ext_resource type="PackedScene" uid="uid://6r8f2ovsc8pf" path="res://ground.tscn" id="3_n3slw"]
 [ext_resource type="Script" path="res://DebugOverlay.cs" id="5_e736m"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_yxroy"]
@@ -81,7 +81,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12.229)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.1678, 2.51419, 0.626017)
 
 [node name="Ground4" parent="." instance=ExtResource("3_n3slw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.9953, 3.47343, 0.626017)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.81549, 4.66029, 0.626017)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_481jo")
@@ -94,7 +94,7 @@ light_indirect_energy = 0.934
 light_volumetric_fog_energy = 0.934
 
 [node name="Ladder" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0255314, 3.94793, -1.15964)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.0195, -1.18417)
 script = ExtResource("3_53rp6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ladder"]
