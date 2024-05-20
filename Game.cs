@@ -183,7 +183,7 @@ public partial class Game : Node3D
 	public Vector3 CalculatePointOnLadderPlane()
 	{
 		var LadderDirection = (ladderTop.GlobalPosition - ladder.GlobalPosition).Normalized();
-		var LadderSize = ladder.shape.Size;
+		var LadderSize = ladder.Size;
 		var LadderPosition = ladder.GlobalPosition;
 		// Get the ladder's right and up vectors based on the direction
 		var ladderRight = LadderDirection.Cross(Vector3.Up).Normalized();
@@ -248,7 +248,7 @@ public partial class Game : Node3D
 			GD.Print($"Take");
 			ladder.GlobalPosition = new Vector3(
 				hand.GlobalPosition.X,
-				hand.GlobalPosition.Y + ladder.shape.Size.Y / 2f,
+				hand.GlobalPosition.Y + ladder.Size.Y / 2f,
 				hand.GlobalPosition.Z
 			);
 			ladder.Rotation = player.Rotation;//ladderInitialRotation;

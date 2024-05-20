@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dy0ewgiuncfu7"]
+[gd_scene load_steps=19 format=3 uid="uid://dy0ewgiuncfu7"]
 
 [ext_resource type="Script" path="res://Game.cs" id="1_74qel"]
 [ext_resource type="Script" path="res://Player.cs" id="2_1qhht"]
@@ -26,9 +26,6 @@ ambient_light_energy = 1.47
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_sts11"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_mxpj3"]
-size = Vector3(1, 4, 0.15)
-
 [sub_resource type="BoxMesh" id="BoxMesh_f3aeh"]
 size = Vector3(1, 4, 0.15)
 
@@ -41,6 +38,11 @@ size = Vector3(0.15, 4, 0.15)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qngct"]
 size = Vector3(0.55, 0.15, 0.15)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mxpj3"]
+size = Vector3(1, 4, 0.15)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0ihpi"]
 
 [node name="Root" type="Node3D"]
 script = ExtResource("1_74qel")
@@ -103,9 +105,6 @@ light_volumetric_fog_energy = 0.934
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.0195, -1.18417)
 script = ExtResource("3_53rp6")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ladder"]
-shape = SubResource("BoxShape3D_mxpj3")
-
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ladder"]
 mesh = SubResource("BoxMesh_f3aeh")
 
@@ -116,6 +115,29 @@ shape = SubResource("CylinderShape3D_v3nlt")
 [node name="LadderTop" type="Marker3D" parent="Ladder"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
+[node name="RightBar" type="CollisionShape3D" parent="Ladder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35, 0, 0)
+shape = SubResource("BoxShape3D_k3fwa")
+
+[node name="TopStep" type="CollisionShape3D" parent="Ladder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.925, 0)
+shape = SubResource("BoxShape3D_qngct")
+
+[node name="MiddleStep" type="CollisionShape3D" parent="Ladder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.47282, 0)
+shape = SubResource("BoxShape3D_qngct")
+
+[node name="LeftBar" type="CollisionShape3D" parent="Ladder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35, 0, 0)
+shape = SubResource("BoxShape3D_k3fwa")
+
+[node name="ShapeArea" type="Area3D" parent="Ladder"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ladder/ShapeArea"]
+shape = SubResource("BoxShape3D_mxpj3")
+
 [node name="DebugOverlay" type="CanvasLayer" parent="."]
 
 [node name="DebugDraw3D" type="Control" parent="DebugOverlay"]
@@ -125,8 +147,34 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("5_e736m")
 
+[node name="Bars" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.308278, 4.94021, -5.57187)
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+freeze = true
+
+[node name="RightBar" type="CollisionShape3D" parent="Bars"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35, 0, 0)
+shape = SubResource("BoxShape3D_k3fwa")
+
+[node name="TopStep" type="CollisionShape3D" parent="Bars"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.925, 0)
+shape = SubResource("BoxShape3D_qngct")
+
+[node name="MiddleStep" type="CollisionShape3D" parent="Bars"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.47282, 0)
+shape = SubResource("BoxShape3D_qngct")
+
+[node name="LeftBar" type="CollisionShape3D" parent="Bars"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35, 0, 0)
+shape = SubResource("BoxShape3D_k3fwa")
+
 [node name="TestLadder" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.38281, 3.25316, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 1.06581e-14, 0, -1.06581e-14, 1, 0.521832, 7.54748, -3.75443)
 
 [node name="RightBar" type="CollisionShape3D" parent="TestLadder"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35, 0, 0)
@@ -143,3 +191,14 @@ shape = SubResource("BoxShape3D_qngct")
 [node name="LeftBar" type="CollisionShape3D" parent="TestLadder"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35, 0, 0)
 shape = SubResource("BoxShape3D_k3fwa")
+
+[node name="TestPlayer" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.162533, 6.37153, -2.83186)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TestPlayer"]
+shape = SubResource("CapsuleShape3D_0ihpi")
+
+[node name="PinJoint3D" type="PinJoint3D" parent="TestPlayer"]
+node_a = NodePath("..")
+node_b = NodePath("../../TestLadder")
+exclude_nodes_from_collision = false
