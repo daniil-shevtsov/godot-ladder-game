@@ -218,12 +218,13 @@ public partial class Game : Node3D
 	{
 		if (@event is InputEventMouseMotion eventMouseMotion)
 		{
-			// player.Rotation = new Vector3(
-			// 	player.Rotation.X,
-			// 	player.Rotation.Y - eventMouseMotion.Relative.X / sensitivity,
-			// 	player.Rotation.Z
-			// );
-			player.Rotate(Basis.Y, -eventMouseMotion.Relative.X / sensitivity);
+			float deltaYaw = -eventMouseMotion.Relative.X / sensitivity; // Yaw rotation (around the Y-axis)
+
+			// Apply the impulse to the rigidbody
+			Vector3 impulse = new Vector3(0, deltaYaw, 0);
+
+			// Apply the impulse to the rigidbody
+			player.ApplyTorqueImpulse(player.Transform.Basis * impulse);
 			cameraPivot.Rotation = new Vector3(
 				Mathf.Clamp(cameraPivot.Rotation.X - eventMouseMotion.Relative.Y / sensitivity, Mathf.DegToRad(-45f), Mathf.DegToRad(90f)),
 				cameraPivot.Rotation.Y,
@@ -265,6 +266,6 @@ public partial class Game : Node3D
 		isClimbing = !isClimbing;
 	}
 
-	private float sensitivity = 1000f;
+	private float sensitivity = 500f;
 	private float ladderPushForce = 10f;
 }

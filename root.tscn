@@ -51,7 +51,7 @@ script = ExtResource("1_74qel")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.86467, 0)
 axis_lock_angular_x = true
 axis_lock_angular_z = true
-mass = 398.93
+mass = 15.43
 script = ExtResource("2_1qhht")
 
 [node name="Pivot" type="Node3D" parent="Player"]
