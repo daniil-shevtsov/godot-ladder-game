@@ -48,7 +48,9 @@ size = Vector3(1, 4, 0.15)
 script = ExtResource("1_74qel")
 
 [node name="Player" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.08818, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.86467, 0)
+axis_lock_angular_x = true
+axis_lock_angular_z = true
 script = ExtResource("2_1qhht")
 
 [node name="Pivot" type="Node3D" parent="Player"]
@@ -72,13 +74,15 @@ shape = SubResource("CylinderShape3D_2m4pg")
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 node_a = NodePath("..")
 node_b = NodePath("../../../Ladder")
-exclude_nodes_from_collision = false
 
 [node name="CameraPivot" type="Marker3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.555856, -0.61598)
 
 [node name="Camera3D" type="Camera3D" parent="Player/CameraPivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.95503, 5.09116)
+
+[node name="FloorRaycast" type="RayCast3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.06348, 0)
 
 [node name="Ground" parent="." instance=ExtResource("3_n3slw")]
 
@@ -103,6 +107,8 @@ light_volumetric_fog_energy = 0.934
 
 [node name="Ladder" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.0195, -1.18417)
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("3_53rp6")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ladder"]
