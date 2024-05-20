@@ -51,6 +51,7 @@ script = ExtResource("1_74qel")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.86467, 0)
 axis_lock_angular_x = true
 axis_lock_angular_z = true
+mass = 398.93
 script = ExtResource("2_1qhht")
 
 [node name="Pivot" type="Node3D" parent="Player"]
@@ -61,19 +62,20 @@ mesh = SubResource("CapsuleMesh_yxroy")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
 shape = SubResource("CapsuleShape3D_s800y")
 
+[node name="LadderBottomHinge" type="HingeJoint3D" parent="Player"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -1.16846)
+node_a = NodePath("..")
+node_b = NodePath("../../Ladder")
+exclude_nodes_from_collision = false
+
 [node name="Hand" type="StaticBody3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.16846)
-collision_layer = 4
-collision_mask = 4
+collision_layer = 0
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player/Hand"]
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("CylinderShape3D_2m4pg")
-
-[node name="LadderBottomHinge" type="HingeJoint3D" parent="Player/Hand"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
-node_a = NodePath("..")
-node_b = NodePath("../../../Ladder")
 
 [node name="CameraPivot" type="Marker3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.555856, -0.61598)
@@ -83,8 +85,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.95503, 5.09116)
 
 [node name="FloorRaycast" type="RayCast3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.06348, 0)
+collision_mask = 8
 
 [node name="Ground" parent="." instance=ExtResource("3_n3slw")]
+collision_layer = 1033
+collision_mask = 1033
 
 [node name="Ground2" parent="." instance=ExtResource("3_n3slw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12.229)
@@ -106,9 +111,7 @@ light_indirect_energy = 0.934
 light_volumetric_fog_energy = 0.934
 
 [node name="Ladder" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.0195, -1.18417)
-collision_layer = 2
-collision_mask = 2
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.8195, -1.18417)
 script = ExtResource("3_53rp6")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ladder"]

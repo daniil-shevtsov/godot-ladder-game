@@ -218,11 +218,12 @@ public partial class Game : Node3D
 	{
 		if (@event is InputEventMouseMotion eventMouseMotion)
 		{
-			player.Rotation = new Vector3(
-				player.Rotation.X,
-				player.Rotation.Y - eventMouseMotion.Relative.X / sensitivity,
-				player.Rotation.Z
-			);
+			// player.Rotation = new Vector3(
+			// 	player.Rotation.X,
+			// 	player.Rotation.Y - eventMouseMotion.Relative.X / sensitivity,
+			// 	player.Rotation.Z
+			// );
+			player.Rotate(Basis.Y, -eventMouseMotion.Relative.X / sensitivity);
 			cameraPivot.Rotation = new Vector3(
 				Mathf.Clamp(cameraPivot.Rotation.X - eventMouseMotion.Relative.Y / sensitivity, Mathf.DegToRad(-45f), Mathf.DegToRad(90f)),
 				cameraPivot.Rotation.Y,
