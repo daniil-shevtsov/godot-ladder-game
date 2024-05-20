@@ -1,10 +1,12 @@
 using Godot;
 using System;
 
-public partial class Player : CharacterBody3D
+public partial class Player : RigidBody3D
 {
 	public const float Speed = 5.0f;
 	public const float JumpVelocity = 4.5f;
+
+	public Vector3 Velocity = Vector3.Zero;
 
 	public CollisionShape3D CollisionShape;
 	public CapsuleShape3D Shape;
@@ -22,5 +24,15 @@ public partial class Player : CharacterBody3D
 	public override void _PhysicsProcess(double delta)
 	{
 
+	}
+
+	public void MoveAndSlide()
+	{
+
+	}
+
+	public bool IsOnFloor()
+	{
+		return false;
 	}
 }
