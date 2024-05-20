@@ -61,8 +61,6 @@ shape = SubResource("CapsuleShape3D_s800y")
 
 [node name="Hand" type="StaticBody3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.16846)
-collision_layer = 4
-collision_mask = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player/Hand"]
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
@@ -79,6 +77,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.555856, -0.61598)
 
 [node name="Camera3D" type="Camera3D" parent="Player/CameraPivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.95503, 5.09116)
+
+[node name="PinJoint3D" type="PinJoint3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.16846)
+node_a = NodePath("..")
+node_b = NodePath("../../Ladder")
+exclude_nodes_from_collision = false
 
 [node name="Ground" parent="." instance=ExtResource("3_n3slw")]
 
@@ -198,7 +202,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.162533, 6.37153, -2.83186)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TestPlayer"]
 shape = SubResource("CapsuleShape3D_0ihpi")
 
-[node name="PinJoint3D" type="PinJoint3D" parent="TestPlayer"]
+[node name="HingeJoint3D" type="HingeJoint3D" parent="TestPlayer"]
 node_a = NodePath("..")
 node_b = NodePath("../../TestLadder")
 exclude_nodes_from_collision = false
