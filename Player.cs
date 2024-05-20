@@ -53,18 +53,18 @@ public partial class Player : RigidBody3D
 			}
 		}
 
-		// Apply gravity
-		if (!_isGrounded)
-		{
-			_velocity.Y += Gravity * state.Step;
-		}
-		else
-		{
-			_velocity.Y = 0;
-		}
+		// // Apply gravity
+		// if (!_isGrounded)
+		// {
+		// 	_velocity.Y += Gravity * state.Step;
+		// }
+		// else
+		// {
+		// 	_velocity.Y = 0;
+		// }
 
-		// Apply the velocity to the RigidBody
-		state.LinearVelocity = _velocity;
+		// // Apply the velocity to the RigidBody
+		// state.LinearVelocity = _velocity;
 	}
 
 	public void MoveAndSlide()
