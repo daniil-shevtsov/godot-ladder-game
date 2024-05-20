@@ -51,7 +51,7 @@ script = ExtResource("1_74qel")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.86467, 0)
 axis_lock_angular_x = true
 axis_lock_angular_z = true
-mass = 15.43
+mass = 1.86
 script = ExtResource("2_1qhht")
 
 [node name="Pivot" type="Node3D" parent="Player"]
@@ -84,21 +84,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.555856, -0.61598)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.95503, 5.09116)
 
 [node name="FloorRaycast" type="RayCast3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.06348, 0)
-collision_mask = 8
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.26093, 0)
+collision_mask = 9
+hit_from_inside = true
 
 [node name="Ground" parent="." instance=ExtResource("3_n3slw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.052001, 0)
 collision_layer = 1033
 collision_mask = 1033
 
-[node name="Ground2" parent="." instance=ExtResource("3_n3slw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12.229)
-
 [node name="Ground3" parent="." instance=ExtResource("3_n3slw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.1678, 2.51419, 0.626017)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.1678, 2.1139, 0.626017)
 
 [node name="Ground4" parent="." instance=ExtResource("3_n3slw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.81549, 4.66029, 0.626017)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.81549, 4.26, 0.626017)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_481jo")
@@ -158,7 +157,7 @@ offset_bottom = 40.0
 script = ExtResource("5_e736m")
 
 [node name="Bars" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.308278, 4.94021, -5.57187)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.308278, 3.22698, -9.11934)
 axis_lock_linear_x = true
 axis_lock_linear_y = true
 axis_lock_linear_z = true
@@ -184,7 +183,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35, 0, 0)
 shape = SubResource("BoxShape3D_k3fwa")
 
 [node name="TestLadder" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 1.06581e-14, 0, -1.06581e-14, 1, 0.521832, 7.54748, -3.75443)
+transform = Transform3D(0.791106, -6.51934e-15, 0.611679, 0, 1, 1.06581e-14, -0.611679, -8.43169e-15, 0.791106, 2.22086, 7.54748, -6.86629)
 
 [node name="RightBar" type="CollisionShape3D" parent="TestLadder"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35, 0, 0)
@@ -203,7 +202,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35, 0, 0)
 shape = SubResource("BoxShape3D_k3fwa")
 
 [node name="TestPlayer" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.162533, 6.37153, -2.83186)
+transform = Transform3D(0.791106, 0, 0.611679, 0, 1, 0, -0.611679, 0, 0.791106, 2.50093, 6.37153, -5.91666)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TestPlayer"]
 shape = SubResource("CapsuleShape3D_0ihpi")

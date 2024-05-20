@@ -40,20 +40,20 @@ public partial class Player : RigidBody3D
 	public override void _IntegrateForces(PhysicsDirectBodyState3D state)
 	{
 		// Reset isGrounded to false at the start of each frame
-		_isGrounded = false;
+		_isGrounded = floorRaycast.IsColliding();
 
-		// Check for ground contact using collision points
-		for (int i = 0; i < state.GetContactCount(); i++)
-		{
-			Vector3 contactNormal = state.GetContactLocalNormal(i);
-			if (contactNormal.Dot(Vector3.Up) > Math.Cos(Mathf.DegToRad(MaxSlopeAngle)))
-			{
-				_isGrounded = true;
-				break;
-			}
-		}
+		// // Check for ground contact using collision points
+		// for (int i = 0; i < state.GetContactCount(); i++)
+		// {
+		// 	Vector3 contactNormal = state.GetContactLocalNormal(i);
+		// 	if (contactNormal.Dot(Vector3.Up) > Math.Cos(Mathf.DegToRad(MaxSlopeAngle)))
+		// 	{
+		// 		_isGrounded = true;
+		// 		break;
+		// 	}
+		// }
 
-		// // Apply gravity
+		// Apply gravity
 		// if (!_isGrounded)
 		// {
 		// 	_velocity.Y += Gravity * state.Step;
@@ -62,8 +62,16 @@ public partial class Player : RigidBody3D
 		// {
 		// 	_velocity.Y = 0;
 		// }
+		Vector3 gravityForce = new Vector3(0, -9.8f, 0);
+		ApplyCentralImpulse(gravityForce);
+		GD.Print($"Current velocity {LinearVelocity} grounded={_isGrounded}");
 
-		// // Apply the velocity to the RigidBody
+		Vector3 velocity = _velocity;
+		Vector3 impulse = velocity * Mass;
+
+		// Apply the impulse to the player's rigidbody
+		ApplyCentralImpulse(impulse);
+		// Apply the velocity to the RigidBody
 		// state.LinearVelocity = _velocity;
 	}
 

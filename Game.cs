@@ -73,11 +73,6 @@ public partial class Game : Node3D
 		{
 			Vector3 velocity = player.Velocity;
 
-			if (!player.IsOnFloor())
-			{
-				velocity.Y -= player.gravity * delta;
-			}
-
 			Vector2 inputDir = Input.GetVector("player_left", "player_right", "player_forward", "player_backwards");
 
 			Vector3 direction = (player.Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
