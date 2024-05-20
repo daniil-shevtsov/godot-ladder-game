@@ -277,5 +277,5 @@ public partial class Game : Node3D
 	}
 
 	private float sensitivity = 500f;
-	private float ladderPushForce = 100f;
+	private float ladderPushForce = 25f;
 }
