@@ -112,6 +112,7 @@ light_volumetric_fog_energy = 0.934
 
 [node name="Ladder" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.8195, -1.18417)
+mass = 6.41
 script = ExtResource("3_53rp6")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ladder"]

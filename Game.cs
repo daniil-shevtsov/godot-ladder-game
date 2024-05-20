@@ -218,13 +218,28 @@ public partial class Game : Node3D
 	{
 		if (@event is InputEventMouseMotion eventMouseMotion)
 		{
-			float deltaYaw = -eventMouseMotion.Relative.X / sensitivity; // Yaw rotation (around the Y-axis)
+			// float deltaYaw = -eventMouseMotion.Relative.X / sensitivity; // Yaw rotation (around the Y-axis)
 
-			// Apply the impulse to the rigidbody
-			Vector3 impulse = new Vector3(0, deltaYaw, 0);
+			// // Apply the impulse to the rigidbody
+			// Vector3 impulse = new Vector3(0, deltaYaw, 0);
 
-			// Apply the impulse to the rigidbody
-			player.ApplyTorqueImpulse(player.Transform.Basis * impulse);
+			// // Apply the impulse to the rigidbody
+			// float dampingFactor = 0.1f;
+			// Vector3 torque = new Vector3(0, deltaYaw, 0) * sensitivity * dampingFactor;
+
+			// // player.ApplyTorqueImpulse(player.Transform.Basis * impulse);
+			// player.ApplyTorque(player.Transform.Basis * torque);
+
+			// Calculate the desired rotation based on mouse input
+			float deltaYaw = -eventMouseMotion.Relative.X / sensitivity * 50f; // Yaw rotation (around the Y-axis)
+
+			// Calculate the angular velocity based on the desired rotation
+			float angularVelocity = deltaYaw;// * sensitivity;
+
+			// Apply the angular velocity to the rigidbody
+			player.AngularVelocity = player.Transform.Basis.Y.Normalized() * angularVelocity;
+
+
 			cameraPivot.Rotation = new Vector3(
 				Mathf.Clamp(cameraPivot.Rotation.X - eventMouseMotion.Relative.Y / sensitivity, Mathf.DegToRad(-45f), Mathf.DegToRad(90f)),
 				cameraPivot.Rotation.Y,
@@ -267,5 +282,5 @@ public partial class Game : Node3D
 	}
 
 	private float sensitivity = 500f;
-	private float ladderPushForce = 10f;
+	private float ladderPushForce = 100f;
 }
